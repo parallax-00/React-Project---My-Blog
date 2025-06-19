@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { set, useForm } from "react-hook-form";
 import { Button, Input, Logo } from "./index";
 import { useDispatch } from "react-redux";
@@ -8,7 +8,7 @@ import { login } from "../features/authSlice";
 
 function Signup() {
   const [error, setError] = useState("");
-  const { register, handleSubmit } = useForm;
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ function Signup() {
         </p>
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-        <form onSubmit={handleSubmit(create)}>
+        <form onSubmit={() => handleSubmit(create)}>
           <div className="space-y-5">
             <Input
               label="Name: "

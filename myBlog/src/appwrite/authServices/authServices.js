@@ -38,7 +38,7 @@ class AuthServices {
   }
   async getCurrentUser() {
     try {
-      return await this.account.getCurrentUser();
+      return await this.account.get();
     } catch (error) {
       console.log("Error in Appwrite authServices :: getCurrentUser", error);
     }

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./App.css";
 import { Header, Footer } from "./components/index";
-import authServices from "./appwrite/authServices/authServices";
+import authServices from "./appwrite/authServices/authServices.js";
 import { login, logout } from "./features/authSlice";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -28,8 +29,10 @@ function App() {
     <div className="min-h-screen bg-tahiti">
       <div className="w-full block">
         <Header />
-        <main>{/* <Outlet /> */}</main>
-        {/* <Footer /> */}
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
       </div>
     </div>
   ) : null;
