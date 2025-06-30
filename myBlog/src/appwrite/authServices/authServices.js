@@ -1,4 +1,3 @@
-import expo from "../../environmentVar/expo";
 import { Client, Account, ID } from "appwrite";
 
 class AuthServices {
@@ -7,8 +6,8 @@ class AuthServices {
 
   constructor() {
     this.client
-      .setEndpoint(expo.appwriteEndpoint)
-      .setProject(expo.appwriteProjectID);
+      .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
+      .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
     this.account = new Account(this.client);
   }
   async createAccount({ email, password, name }) {
@@ -38,7 +37,10 @@ class AuthServices {
   }
   async getCurrentUser() {
     try {
-      return await this.account.get();
+      const session = await this.account.getSession("current");
+      if (session) {
+        return await this.account.get();
+      }
     } catch (error) {
       console.log("Error in Appwrite authServices :: getCurrentUser", error);
     }

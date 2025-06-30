@@ -29,8 +29,8 @@ function App() {
   return !loading ? (
     <div className="min-h-screen bg-tahiti">
       <div className="w-full block">
-        <PingTest />
         <Header />
+        <PingTest />
         <main>
           <Outlet />
         </main>

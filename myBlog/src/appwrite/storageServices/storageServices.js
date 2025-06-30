@@ -1,4 +1,4 @@
-import expo from "../../environmentVar/expo";
+
 import { Client, Storage, ID } from "appwrite";
 
 class StorageServices {
@@ -7,14 +7,14 @@ class StorageServices {
 
   constructor() {
     this.client
-      .setEndpoint(expo.appwriteEndpoint)
-      .setProject(expo.appwriteProjectID);
+      .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
+      .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
     this.buckets = new Storage(this.client);
   }
   async uploadFile(file) {
     try {
       return await this.buckets.createFile(
-        expo.appwriteStorageID,
+        import.meta.env.VITE_APPWRITE_STORAGE_ID,
         ID.unique(),
         file
       );
@@ -25,7 +25,7 @@ class StorageServices {
   }
   async deleteFile(fileID) {
     try {
-      await this.buckets.deleteFile(expo.appwriteStorageID, fileID);
+      await this.buckets.deleteFile(import.meta.env.VITE_APPWRITE_STORAGE_ID, fileID);
       return true;
     } catch (error) {
       console.log("Error in Appwrite storageServices :: deleteFile", error);
@@ -33,7 +33,7 @@ class StorageServices {
     }
   }
   getFilePreview(fileID) {
-    return this.buckets.getFilePreview(expo.appwriteStorageID, fileID);
+    return this.buckets.getFilePreview(import.meta.env.VITE_APPWRITE_STORAGE_ID, fileID);
   }
 }
 

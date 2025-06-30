@@ -1,4 +1,4 @@
-import expo from "../../environmentVar/expo";
+
 import { Client, Databases } from "appwrite";
 
 class DbServices {
@@ -7,15 +7,15 @@ class DbServices {
 
   constructor() {
     this.client
-      .setEndpoint(expo.appwriteEndpoint)
-      .setProject(expo.appwriteProjectID);
+      .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
+      .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
     this.databases = new Databases(this.client);
   }
   async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
       return await this.databases.createDocument(
-        expo.appwriteDatabaseID,
-        expo.appwriteCollectionID,
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
         slug,
         {
           title,
@@ -32,8 +32,8 @@ class DbServices {
   async updatePost(slug, { title, content, featuredImage, status }) {
     try {
       return await this.databases.updateDocument(
-        expo.appwriteDatabaseID,
-        expo.appwriteCollectionID,
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
         slug,
         {
           title,
@@ -49,8 +49,8 @@ class DbServices {
   async deletePost(slug) {
     try {
       await this.databases.deleteDocument(
-        expo.appwriteDatabaseID,
-        expo.appwriteCollectionID,
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
         slug
       );
       return true;
@@ -62,8 +62,8 @@ class DbServices {
   async getPost(slug) {
     try {
       const post = await this.databases.getDocument(
-        expo.appwriteDatabaseID,
-        expo.appwriteCollectionID,
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
         slug
       );
       if (post) {
@@ -81,8 +81,8 @@ class DbServices {
   async listPosts() {
     try {
       return await this.databases.listDocuments(
-        expo.appwriteDatabaseID,
-        expo.appwriteCollectionID,
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
         [Query.equal("status", "active")]
       );
     } catch (error) {

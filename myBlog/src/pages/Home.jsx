@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import dbServices from "../appwrite/dbServices/dbServices";
 import { Container, PostCard } from "../components";
-import { findNonSerializableValue } from "@reduxjs/toolkit";
+
 function Home() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
